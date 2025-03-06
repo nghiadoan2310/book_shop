@@ -1,5 +1,6 @@
 package com.java_project.identity_service.configuration;
 
+import com.java_project.identity_service.constant.PredefinedRole;
 import com.java_project.identity_service.entity.Role;
 import com.java_project.identity_service.entity.User;
 //import com.java_project.identity_service.enums.Role;
@@ -37,7 +38,7 @@ public class ApplicationInitConfig {
     ApplicationRunner applicationRunner(UserRepository userRepository){
         return args -> {
             //Kiểm tra trong DB có username = admin, nếu chưa có tạo acc có username = admin
-            if(userRepository.findByUsername("admin").isEmpty()) {
+            if(userRepository.findByUsername(PredefinedRole.ADMIN_ROLE).isEmpty()) {
                 roleRepository.save(Role.builder()
                         .name("USER")
                         .description("User role")
@@ -53,7 +54,7 @@ public class ApplicationInitConfig {
                 roles.add(adminRole);
 
                 User user = User.builder()
-                        .username("admin")
+                        .username(PredefinedRole.ADMIN_ROLE)
                         .password(passwordEncoder.encode("admin"))
                         .roles(roles)
                         .build();

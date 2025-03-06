@@ -1,15 +1,18 @@
 package com.java_project.identity_service.service;
 
+import com.java_project.identity_service.constant.PredefinedRole;
 import com.java_project.identity_service.dto.request.UserCreationRequest;
 import com.java_project.identity_service.dto.request.UserUpdateRequest;
 import com.java_project.identity_service.dto.response.UserResponse;
+import com.java_project.identity_service.entity.Role;
 import com.java_project.identity_service.entity.User;
-import com.java_project.identity_service.enums.Role;
 import com.java_project.identity_service.exception.AppException;
 import com.java_project.identity_service.exception.ErrorCode;
+import com.java_project.identity_service.mapper.ProfileMapper;
 import com.java_project.identity_service.mapper.UserMapper;
 import com.java_project.identity_service.repository.RoleRepository;
 import com.java_project.identity_service.repository.UserRepository;
+import com.java_project.identity_service.repository.httpclient.ProfileClient;
 import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
@@ -22,7 +25,6 @@ import org.springframework.stereotype.Service;
 
 import java.util.HashSet;
 import java.util.List;
-import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
@@ -30,7 +32,9 @@ import java.util.Optional;
 public class UserService {
     UserRepository userRepository;
     RoleRepository roleRepository;
+    ProfileClient profileClient;
 
+    ProfileMapper profileMapper;
     UserMapper userMapper;
     PasswordEncoder passwordEncoder;
 
@@ -43,13 +47,23 @@ public class UserService {
         }
 
         User user = userMapper.toUser(request);
+        //Mã hoá password
         PasswordEncoder passwordEncoder = new BCryptPasswordEncoder(10);
         user.setPassword(passwordEncoder.encode(request.getPassword()));
 
-        HashSet<String> roles = new HashSet<>();
-        roles.add(Role.USER.name());
+        //Tạo set roles chứa role của user
+        HashSet<Role> roles = new HashSet<>();
+        //Kiểm tra trong DB role đã có role user chưa, nếu có thì add vào set roles
+        roleRepository.findById(PredefinedRole.USER_ROLE).ifPresent(roles::add);
 
-        //user.setRoles(roles);
+        //Set role USER là role mặc định của các tài khoản mới tạo
+        user.setRoles(roles);
+
+        var profileRequest = profileMapper.toProfileCreateRequest(request);
+        profileRequest.setUserId(user.getId());
+        //Tạo profile bằng cách gọi đến profile service
+        var profileResponse = profileClient.createProfile(profileRequest);
+
 
         return userMapper.userResponse(userRepository.save(user));
     }

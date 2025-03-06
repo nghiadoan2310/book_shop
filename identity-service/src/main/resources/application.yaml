@@ -19,3 +19,7 @@ jwt:
   valid-duration: 3600 #in seconds
   refreshable-duration: 3600 #in seconds
 
+app:
+  service:
+    profile: "http://localhost:8081/profile"
+
