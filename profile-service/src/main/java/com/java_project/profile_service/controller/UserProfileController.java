@@ -8,12 +8,19 @@ import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @RequestMapping("/users")
 @RequiredArgsConstructor
 @FieldDefaults(level = AccessLevel.PRIVATE, makeFinal = true)
 public class UserProfileController {
     UserProfileService userProfileService;
+
+    @GetMapping
+    List<UserProfileResponse> getAllProfiles() {
+        return userProfileService.getAllProfiles();
+    }
 
     @GetMapping("/{profileId}")
     UserProfileResponse getProfile(@PathVariable("profileId") String profileId) {

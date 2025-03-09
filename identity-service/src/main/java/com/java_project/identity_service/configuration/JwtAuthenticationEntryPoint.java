@@ -1,9 +1,8 @@
 package com.java_project.identity_service.configuration;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.java_project.identity_service.dto.request.ApiResponse;
+import com.java_project.identity_service.dto.ApiResponse;
 import com.java_project.identity_service.exception.ErrorCode;
-import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.http.MediaType;

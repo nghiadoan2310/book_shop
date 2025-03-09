@@ -1,6 +1,6 @@
 package com.java_project.identity_service.exception;
 
-import com.java_project.identity_service.dto.request.ApiResponse;
+import com.java_project.identity_service.dto.ApiResponse;
 import jakarta.validation.ConstraintViolation;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.AccessDeniedException;

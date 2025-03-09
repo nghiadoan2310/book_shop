@@ -1,6 +1,6 @@
 package com.java_project.identity_service.controller;
 
-import com.java_project.identity_service.dto.request.ApiResponse;
+import com.java_project.identity_service.dto.ApiResponse;
 import com.java_project.identity_service.dto.request.RoleRequest;
 import com.java_project.identity_service.dto.response.RoleResponse;
 import com.java_project.identity_service.service.RoleService;

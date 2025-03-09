@@ -1,4 +1,4 @@
-package com.java_project.identity_service.dto.request;
+package com.java_project.api_gateway.dto;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import lombok.*;

@@ -1,5 +1,6 @@
 package com.java_project.identity_service.controller;
 
+import com.java_project.identity_service.dto.ApiResponse;
 import com.java_project.identity_service.dto.request.*;
 import com.java_project.identity_service.dto.response.AuthenticationResponse;
 import com.java_project.identity_service.dto.response.IntrospectResponse;

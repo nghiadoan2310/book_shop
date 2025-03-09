@@ -1,6 +1,6 @@
 package com.java_project.identity_service.controller;
 
-import com.java_project.identity_service.dto.request.ApiResponse;
+import com.java_project.identity_service.dto.ApiResponse;
 import com.java_project.identity_service.dto.request.UserUpdateRequest;
 import com.java_project.identity_service.dto.response.UserResponse;
 import com.java_project.identity_service.entity.User;
@@ -9,7 +9,6 @@ import com.java_project.identity_service.service.UserService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
