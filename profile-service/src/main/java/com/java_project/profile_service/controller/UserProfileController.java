@@ -1,5 +1,6 @@
 package com.java_project.profile_service.controller;
 
+import com.java_project.profile_service.dto.ApiResponse;
 import com.java_project.profile_service.dto.request.ProfileCreationRequest;
 import com.java_project.profile_service.dto.response.UserProfileResponse;
 import com.java_project.profile_service.service.UserProfileService;
@@ -18,12 +19,16 @@ public class UserProfileController {
     UserProfileService userProfileService;
 
     @GetMapping
-    List<UserProfileResponse> getAllProfiles() {
-        return userProfileService.getAllProfiles();
+    ApiResponse<List<UserProfileResponse>> getAllProfiles() {
+        return ApiResponse.<List<UserProfileResponse>>builder()
+                .result(userProfileService.getAllProfiles())
+                .build();
     }
 
     @GetMapping("/{profileId}")
-    UserProfileResponse getProfile(@PathVariable("profileId") String profileId) {
-        return userProfileService.getProfile(profileId);
+    ApiResponse<UserProfileResponse> getProfile(@PathVariable("profileId") String profileId) {
+        return ApiResponse.<UserProfileResponse>builder()
+                .result(userProfileService.getProfile(profileId))
+                .build();
     }
 }

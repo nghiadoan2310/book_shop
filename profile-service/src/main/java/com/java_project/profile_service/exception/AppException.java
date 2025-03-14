@@ -1,4 +1,4 @@
-package com.java_project.identity_service.exception;
+package com.java_project.profile_service.exception;
 
 import lombok.Getter;
 import lombok.Setter;

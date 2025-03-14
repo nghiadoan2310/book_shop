@@ -38,7 +38,6 @@ public class UserService {
     UserMapper userMapper;
     PasswordEncoder passwordEncoder;
 
-
     public UserResponse createUser(UserCreationRequest request) {
 
         //Nếu username đã tồn tại

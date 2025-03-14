@@ -1,6 +1,8 @@
 package com.java_project.identity_service.repository.httpclient;
 
+import com.java_project.identity_service.dto.ApiResponse;
 import com.java_project.identity_service.dto.request.ProfileCreationRequest;
+import com.java_project.identity_service.dto.response.UserProfileResponse;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -10,5 +12,5 @@ import org.springframework.web.bind.annotation.RequestBody;
 public interface ProfileClient {
 
     @PostMapping(value = "/internal/users", produces = MediaType.APPLICATION_JSON_VALUE)
-    Object createProfile(@RequestBody ProfileCreationRequest request);
+    ApiResponse<UserProfileResponse> createProfile(@RequestBody ProfileCreationRequest request);
 }

@@ -124,7 +124,7 @@ public class AuthenticationService {
         //Nối các role trong Set roles thành 1 chuỗi ngăn cách nhau bởi khoảng trắng
         StringJoiner stringJoiner = new StringJoiner(" ");
 
-        //Sử dụng CollectionUtils để kiểm tra Set roles có rỗng không
+        //Sử dụng CollectionUtils để kiểm tra Set roles có phần tử nào không
         if(!CollectionUtils.isEmpty(user.getRoles())){
             //Tạo chuỗi
             user.getRoles().forEach(role -> {
@@ -177,6 +177,7 @@ public class AuthenticationService {
                         .toEpochMilli())
                 : signedJWT.getJWTClaimsSet().getExpirationTime();
 
+        //Xác thực chữ ký
         var verified = signedJWT.verify(verifier);
 
         //Nếu verify lỗi hoặc token hết hạn

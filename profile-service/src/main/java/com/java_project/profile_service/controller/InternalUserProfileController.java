@@ -1,5 +1,6 @@
 package com.java_project.profile_service.controller;
 
+import com.java_project.profile_service.dto.ApiResponse;
 import com.java_project.profile_service.dto.request.ProfileCreationRequest;
 import com.java_project.profile_service.dto.response.UserProfileResponse;
 import com.java_project.profile_service.service.UserProfileService;
@@ -16,7 +17,9 @@ public class InternalUserProfileController {
     UserProfileService userProfileService;
 
     @PostMapping
-    UserProfileResponse createProfile(@RequestBody ProfileCreationRequest request) {
-        return userProfileService.createProfile(request);
+    ApiResponse<UserProfileResponse> createProfile(@RequestBody ProfileCreationRequest request) {
+        return ApiResponse.<UserProfileResponse>builder()
+                .result(userProfileService.createProfile(request))
+                .build();
     }
 }

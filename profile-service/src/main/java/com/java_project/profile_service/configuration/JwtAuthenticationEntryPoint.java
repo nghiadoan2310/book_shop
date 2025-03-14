@@ -1,4 +1,4 @@
-package com.java_project.identity_service.configuration;
+package com.java_project.profile_service.configuration;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.java_project.identity_service.dto.ApiResponse;

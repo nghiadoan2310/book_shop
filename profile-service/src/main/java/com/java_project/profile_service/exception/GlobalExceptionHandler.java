@@ -1,6 +1,6 @@
-package com.java_project.identity_service.exception;
+package com.java_project.profile_service.exception;
 
-import com.java_project.identity_service.dto.ApiResponse;
+import com.java_project.profile_service.dto.ApiResponse;
 import jakarta.validation.ConstraintViolation;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.AccessDeniedException;
@@ -15,16 +15,6 @@ import java.util.Objects;
 @ControllerAdvice
 public class GlobalExceptionHandler {
     private static final String MIN_ATTRIBUTE = "min";
-
-//    @ExceptionHandler(value = RuntimeException.class)
-//    ResponseEntity<ApiResponse<?>> handlingRuntimeException(RuntimeException exception) {
-//        ApiResponse<?> apiResponse = new ApiResponse<>();
-//
-//        apiResponse.setCode(ErrorCode.UNCATEGORIZED_EXCEPTION.getCode());
-//        apiResponse.setMessage(ErrorCode.UNCATEGORIZED_EXCEPTION.getMessage());
-//
-//        return ResponseEntity.status(ErrorCode.UNCATEGORIZED_EXCEPTION.getStatusCode()).body(apiResponse);
-//    }
 
     //Xử lý các lỗi throw AppException
     @ExceptionHandler(value = AppException.class)

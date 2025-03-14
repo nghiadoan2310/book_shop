@@ -1,6 +1,5 @@
-package com.java_project.identity_service.configuration;
+package com.java_project.profile_service.configuration;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
@@ -23,12 +22,9 @@ import org.springframework.web.filter.CorsFilter;
 //Spring security filter gồm nhiều filter (chức năng khá giống với middleware trong nodejs)
 public class SecurityConfig {
 
-    private static final String[] PUBLIC_ENDPOINT = {"/users/registration", "/auth/login", "/auth/introspect", "/auth//logout",
-        "/auth/refresh"
-    };
+    private static final String[] PUBLIC_ENDPOINT = {
 
-//    @Value("${jwt.signerKey}")
-//    private String signerKey;
+    };
 
     private final CustomJwtDecoder customJwtEncoder;
 
@@ -42,7 +38,7 @@ public class SecurityConfig {
 
         httpSecurity.authorizeHttpRequests(request ->
                 request
-                        ////Không authenticated với các endpoint có permitAll
+                        //Không authenticated với các endpoint có permitAll
                         .requestMatchers(HttpMethod.POST , PUBLIC_ENDPOINT).permitAll()
                         //Những user có role admin mới có thể truy cập endpoint
                         //Sử dụng security theo endpoint (theo method sẽ dùng trong Service)
@@ -82,35 +78,4 @@ public class SecurityConfig {
         return jwtAuthenticationConverter;
     }
 
-    //config cors
-    @Bean
-    public CorsFilter corsFilter() {
-        CorsConfiguration corsConfiguration = new CorsConfiguration();
-
-        corsConfiguration.addAllowedOrigin("http://localhost:3000");
-        corsConfiguration.addAllowedMethod("*");
-        corsConfiguration.addAllowedHeader("*");
-
-        //Áp dụng cors cho các endpoint
-        UrlBasedCorsConfigurationSource urlBasedCorsConfigurationSource = new UrlBasedCorsConfigurationSource();
-        //áp dụng cors cho tất cả endpoint
-        urlBasedCorsConfigurationSource.registerCorsConfiguration("/**", corsConfiguration);
-
-        return new CorsFilter(urlBasedCorsConfigurationSource);
-    }
-
-//    @Bean
-//    JwtDecoder jwtDecoder() {
-//        SecretKeySpec secretKeySpec = new SecretKeySpec(signerKey.getBytes(), "HS512");
-//
-//        return NimbusJwtDecoder
-//                .withSecretKey(secretKeySpec)
-//                .macAlgorithm(MacAlgorithm.HS512)
-//                .build();
-//    }
-
-    @Bean
-    PasswordEncoder passwordEncoder() {
-        return new BCryptPasswordEncoder(10);
-    }
 }
