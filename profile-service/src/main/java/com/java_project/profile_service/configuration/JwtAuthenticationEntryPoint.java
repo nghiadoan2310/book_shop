@@ -1,8 +1,8 @@
 package com.java_project.profile_service.configuration;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.java_project.identity_service.dto.ApiResponse;
-import com.java_project.identity_service.exception.ErrorCode;
+import com.java_project.profile_service.dto.ApiResponse;
+import com.java_project.profile_service.exception.ErrorCode;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.http.MediaType;

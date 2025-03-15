@@ -2,11 +2,13 @@ package com.java_project.identity_service.configuration;
 
 import feign.RequestInterceptor;
 import feign.RequestTemplate;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.util.StringUtils;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
 
-//Dược sử dụng khi request tới cac service khác
+@Slf4j
+//Được sử dụng khi request tới các service khác
 public class AuthenticationRequestInterceptor implements RequestInterceptor {
     @Override
     public void apply(RequestTemplate requestTemplate) {
@@ -25,6 +27,6 @@ public class AuthenticationRequestInterceptor implements RequestInterceptor {
         //Nếu lấy được Authorization của Header của request hiện tại
         if(StringUtils.hasText(authHeader))
             //Gắn authorization vào header của request feign (là các request giữa các service)
-            requestTemplate.header(authHeader);
+            requestTemplate.header("Authorization", authHeader);
     }
 }

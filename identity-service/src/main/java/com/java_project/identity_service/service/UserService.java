@@ -47,7 +47,6 @@ public class UserService {
 
         User user = userMapper.toUser(request);
         //Mã hoá password
-        PasswordEncoder passwordEncoder = new BCryptPasswordEncoder(10);
         user.setPassword(passwordEncoder.encode(request.getPassword()));
 
         //Tạo set roles chứa role của user
@@ -57,14 +56,14 @@ public class UserService {
 
         //Set role USER là role mặc định của các tài khoản mới tạo
         user.setRoles(roles);
+        user = userRepository.save(user);
 
         var profileRequest = profileMapper.toProfileCreateRequest(request);
         profileRequest.setUserId(user.getId());
         //Tạo profile bằng cách gọi đến profile service
-        var profileResponse = profileClient.createProfile(profileRequest);
+        profileClient.createProfile(profileRequest);
 
-
-        return userMapper.userResponse(userRepository.save(user));
+        return userMapper.userResponse(user);
     }
 
     //Kiểm tra trước khi tới endpoint
