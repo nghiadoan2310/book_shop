@@ -22,3 +22,9 @@ spring:
           - Path=${app.api-prefix}/profile/users/**
         filters:
           - StripPrefix=2 #Loại bỏ 2 phần của path vd: cắt /api/v1 (vì thường sẽ thêm api vào để phân biệt FE và BE)
+      - id: profile_service
+        uri: http://localhost:8082
+        predicates:
+          - Path=${app.api-prefix}/notification/**
+        filters:
+          - StripPrefix=2

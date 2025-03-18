@@ -23,8 +23,12 @@ import org.springframework.web.filter.CorsFilter;
 //Spring security filter gồm nhiều filter (chức năng khá giống với middleware trong nodejs)
 public class SecurityConfig {
 
-    private static final String[] PUBLIC_ENDPOINT = {"/users/registration", "/auth/login", "/auth/introspect", "/auth//logout",
-        "/auth/refresh"
+    private static final String[] PUBLIC_ENDPOINT = {
+            "/users/registration",
+            "/auth/login",
+            "/auth/introspect",
+            "/auth//logout",
+            "/auth/refresh",
     };
 
 //    @Value("${jwt.signerKey}")
