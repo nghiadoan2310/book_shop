@@ -16,6 +16,8 @@ import com.java_project.identity_service.repository.httpclient.ProfileClient;
 import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
+import org.springframework.dao.DataIntegrityViolationException;
+import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.security.access.prepost.PostAuthorize;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -38,12 +40,14 @@ public class UserService {
     UserMapper userMapper;
     PasswordEncoder passwordEncoder;
 
+    KafkaTemplate<String, String> kafkaTemplate;
+
     public UserResponse createUser(UserCreationRequest request) {
 
-        //Nếu username đã tồn tại
-        if(userRepository.existsByUsername(request.getUsername())) {
-            throw new AppException(ErrorCode.USER_EXISTED);
-        }
+        //Nếu username đã tồn tại (bỏ vì email là unique - được set trong entity)
+//        if(userRepository.existsByUsername(request.getUsername())) {
+//            throw new AppException(ErrorCode.USER_EXISTED);
+//        }
 
         User user = userMapper.toUser(request);
         //Mã hoá password
@@ -56,14 +60,26 @@ public class UserService {
 
         //Set role USER là role mặc định của các tài khoản mới tạo
         user.setRoles(roles);
-        user = userRepository.save(user);
+        user.setEmailVerified(false);
+
+        try {
+            user = userRepository.save(user);
+        } catch (DataIntegrityViolationException exception){
+            throw new AppException(ErrorCode.USER_EXISTED);
+        }
 
         var profileRequest = profileMapper.toProfileCreateRequest(request);
         profileRequest.setUserId(user.getId());
         //Tạo profile bằng cách gọi đến profile service
-        profileClient.createProfile(profileRequest);
+        var profile = profileClient.createProfile(profileRequest);
 
-        return userMapper.userResponse(user);
+        // Publish message to kafka
+        kafkaTemplate.send("onboard-successful", "Welcome our new member " + user.getUsername());
+
+        var userCreationReponse = userMapper.userResponse(user);
+        userCreationReponse.setId(profile.getResult().getId());
+
+        return userCreationReponse;
     }
 
     //Kiểm tra trước khi tới endpoint

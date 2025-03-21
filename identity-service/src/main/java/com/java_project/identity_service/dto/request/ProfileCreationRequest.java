@@ -12,6 +12,8 @@ import java.time.LocalDate;
 @FieldDefaults(level = AccessLevel.PRIVATE) //Các field không định nghĩa mặc định sẽ là private
 public class ProfileCreationRequest {
     String userId;
+    String username;
+    String email;
     String firstName;
     String lastName;
     LocalDate dob;

@@ -25,6 +25,8 @@ public class UserProfile {
     @Property("userId") // Chỉ định tên thuộc tính
     String userId;
 
+    String username;
+    String email;
     String firstName;
     String lastName;
     LocalDate dob;
