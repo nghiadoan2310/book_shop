@@ -23,7 +23,6 @@ import java.util.List;
 public class EmailService {
     EmailClient emailClient;
 
-    //String apiKey="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";
     @Value("${notification.email.brevo-apikey}")
     @NonFinal
     String apiKey;
