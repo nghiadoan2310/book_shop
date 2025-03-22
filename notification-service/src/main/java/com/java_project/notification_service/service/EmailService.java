@@ -23,9 +23,8 @@ import java.util.List;
 public class EmailService {
     EmailClient emailClient;
 
-    @Value("${notification.email.brevo-apikey}")
-    @NonFinal
-    String apiKey;
+
+    String apiKey="your-brevo-apiKey";
 
     public EmailResponse sendEmail(SendEmailRequest request) {
         EmailRequest emailRequest = EmailRequest.builder()

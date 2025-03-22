@@ -39,20 +39,23 @@ public class ApplicationInitConfig {
         return args -> {
             //Kiểm tra trong DB có username = admin, nếu chưa có tạo acc có username = admin
             if(userRepository.findByUsername(PredefinedRole.ADMIN_ROLE).isEmpty()) {
+                //Tạo role USER và lưu vào DB role
                 roleRepository.save(Role.builder()
                         .name("USER")
                         .description("User role")
                         .build());
 
+                //Tạo role ADMIN và lưu vào DB role
                 Role adminRole = roleRepository.save(Role.builder()
                         .name("ADMIN")
                         .description("Admin role")
                         .build());
 
+                //Thêm vào Set role để sau đó gán Set này vào role của admin khi khởi tạo
                 var roles = new HashSet<Role>();
-
                 roles.add(adminRole);
 
+                //Tạo người dùng admin
                 User user = User.builder()
                         .username(PredefinedRole.ADMIN_ROLE)
                         .emailVerified(true)
@@ -60,6 +63,7 @@ public class ApplicationInitConfig {
                         .roles(roles)
                         .build();
 
+                //Save người dùng admin và cảnh báo đổi mật khẩu
                 userRepository.save(user);
                 log.warn("admin user has been created with default password: admin, please change it");
             }

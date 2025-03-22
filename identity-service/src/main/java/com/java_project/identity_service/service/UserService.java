@@ -1,5 +1,6 @@
 package com.java_project.identity_service.service;
 
+import com.java_project.event.dto.NotificationEvent;
 import com.java_project.identity_service.constant.PredefinedRole;
 import com.java_project.identity_service.dto.request.UserCreationRequest;
 import com.java_project.identity_service.dto.request.UserUpdateRequest;
@@ -40,7 +41,7 @@ public class UserService {
     UserMapper userMapper;
     PasswordEncoder passwordEncoder;
 
-    KafkaTemplate<String, String> kafkaTemplate;
+    KafkaTemplate<String, Object> kafkaTemplate;
 
     public UserResponse createUser(UserCreationRequest request) {
 
@@ -73,8 +74,15 @@ public class UserService {
         //Tạo profile bằng cách gọi đến profile service
         var profile = profileClient.createProfile(profileRequest);
 
+        NotificationEvent notificationEvent = NotificationEvent.builder()
+                .channel("EMAIL")
+                .recipient(request.getEmail())
+                .subject("Email from book shop")
+                .body("Hello" + request.getUsername())
+                .build();
+
         // Publish message to kafka
-        kafkaTemplate.send("onboard-successful", "Welcome our new member " + user.getUsername());
+        kafkaTemplate.send("notification-delivery", notificationEvent);
 
         var userCreationReponse = userMapper.userResponse(user);
         userCreationReponse.setId(profile.getResult().getId());
