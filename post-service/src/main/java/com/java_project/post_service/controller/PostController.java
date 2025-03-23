@@ -1,6 +1,7 @@
 package com.java_project.post_service.controller;
 
 import com.java_project.post_service.dto.ApiResponse;
+import com.java_project.post_service.dto.PageResponse;
 import com.java_project.post_service.dto.request.PostRequest;
 import com.java_project.post_service.dto.response.PostResponse;
 import com.java_project.post_service.service.PostService;
@@ -25,9 +26,12 @@ public class PostController {
     }
 
     @GetMapping("/my-posts")
-    ApiResponse<List<PostResponse>> getMyPosts() {
-        return ApiResponse.<List<PostResponse>>builder()
-                .result(postService.getMyPosts())
+    ApiResponse<PageResponse<PostResponse>> getMyPosts(
+            @RequestParam(value = "page", required = false, defaultValue = "1") int page,
+            @RequestParam(value = "size", required = false, defaultValue = "10") int size
+    ) {
+        return ApiResponse.<PageResponse<PostResponse>>builder()
+                .result(postService.getMyPosts(page, size))
                 .build();
     }
 }
