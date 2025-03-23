@@ -14,7 +14,7 @@ import java.util.List;
 public class PostResponse {
     String id;
     String content;
-    String profileId;
+    String userId;
     Instant createdDate;
     Instant modifiedDate;
 }

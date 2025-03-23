@@ -80,7 +80,7 @@ public class AuthenticationService {
 
         //Payload
         JWTClaimsSet jwtClaimsSet = new JWTClaimsSet.Builder()
-                .subject(user.getUsername())
+                .subject(user.getId())
                 .issueTime(new Date())
                 .issuer("")
                 .claim("scope", buildScope(user)) //Tạo claim scope để map với spring security trong việc phân quyền
