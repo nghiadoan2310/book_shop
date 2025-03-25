@@ -10,5 +10,6 @@ import java.util.List;
 
 @Repository
 public interface PostRepository extends MongoRepository<Post, String> {
+    //Page: khai báo để phân trang với yêu cầu được đưa vào pageable
     Page<Post> findAllByUserId(String userId, Pageable pageable);
 }
