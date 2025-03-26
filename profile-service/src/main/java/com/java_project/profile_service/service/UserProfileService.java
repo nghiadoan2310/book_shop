@@ -43,9 +43,9 @@ public class UserProfileService {
 
     @PreAuthorize("hasRole('ADMIN')")
     //Get profile(dùng cho admin)
-    public UserProfileResponse getProfile(String id) {
-        UserProfile userProfile = userProfileRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException("Profile not found"));
+    public UserProfileResponse getByUserId(String userId) {
+        UserProfile userProfile = userProfileRepository.findById(userId)
+                .orElseThrow(() -> new AppException(ErrorCode.USER_NOT_FOUND));
 
         return userProfileMapper.toUserProfileResponse(userProfile);
     }

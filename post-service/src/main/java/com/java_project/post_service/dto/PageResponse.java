@@ -22,5 +22,5 @@ public class PageResponse<T> {
     long totalElements;
 
     @Builder.Default
-    private List<T> data = Collections.emptyList();
+    private List<T> data = Collections.emptyList(); //List data chứa kiểu dữ liệu người dùng truyền vào mặc định là rỗng
 }

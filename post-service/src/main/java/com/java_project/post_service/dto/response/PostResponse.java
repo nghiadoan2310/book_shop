@@ -15,7 +15,8 @@ public class PostResponse {
     String id;
     String content;
     String userId;
-    String created;
-    Instant createdDate;
-    Instant modifiedDate;
+    String username;
+    String created; //Thời gian kể từ ngày đăng bài (VD: 2 giây trước, 2 giờ trước,...)
+    Instant createdDate; //Thời điểm tạo bài post
+    Instant modifiedDate; //Thời gian chỉnh sửa gần nhất
 }
