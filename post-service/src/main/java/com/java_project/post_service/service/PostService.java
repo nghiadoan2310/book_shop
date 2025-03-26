@@ -59,6 +59,7 @@ public class PostService {
         try {
             //Get profile trong profile service
             userProfile = profileClient.getProfile(userId).getResult();
+
         } catch (Exception e) {
             log.error("error while getting user profile", e);
         }

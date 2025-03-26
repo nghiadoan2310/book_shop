@@ -9,6 +9,6 @@ import org.springframework.web.bind.annotation.PathVariable;
 @FeignClient(name = "profile-service", url = "${app.service.profile.url}")
 public interface ProfileClient {
 
-    @GetMapping(value = "/internal/users/{userId}")
+    @GetMapping("/internal/users/{userId}")
     ApiResponse<UserProfileResponse> getProfile(@PathVariable String userId);
 }

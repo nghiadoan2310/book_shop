@@ -84,10 +84,10 @@ public class UserService {
         // Publish message to kafka
         kafkaTemplate.send("notification-delivery", notificationEvent);
 
-        var userCreationReponse = userMapper.userResponse(user);
-        userCreationReponse.setId(profile.getResult().getId());
+        //var userCreationReponse = userMapper.userResponse(user);
+        //userCreationReponse.setId(profile.getResult().getId());
 
-        return userCreationReponse;
+        return userMapper.userResponse(user);
     }
 
     //Kiểm tra trước khi tới endpoint

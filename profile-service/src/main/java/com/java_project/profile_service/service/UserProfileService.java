@@ -41,10 +41,8 @@ public class UserProfileService {
         return userProfileRepository.findAll().stream().map(userProfileMapper::toUserProfileResponse).toList();
     }
 
-    @PreAuthorize("hasRole('ADMIN')")
-    //Get profile(dùng cho admin)
     public UserProfileResponse getByUserId(String userId) {
-        UserProfile userProfile = userProfileRepository.findById(userId)
+        UserProfile userProfile = userProfileRepository.findByUserId(userId)
                 .orElseThrow(() -> new AppException(ErrorCode.USER_NOT_FOUND));
 
         return userProfileMapper.toUserProfileResponse(userProfile);

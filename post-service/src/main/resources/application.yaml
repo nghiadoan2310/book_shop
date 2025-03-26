@@ -13,4 +13,4 @@ spring:
 app:
   service:
     profile:
-      url: http://localhost:8081/profile
+      url: "http://localhost:8081/profile"
