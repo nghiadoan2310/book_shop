@@ -1,0 +1,19 @@
+server:
+  port: 8088
+  servlet:
+    context-path: /payment
+
+spring:
+  application:
+    name: payment-service
+
+vnp:
+  vnp_PayUrl: https://sandbox.vnpayment.vn/paymentv2/vpcpay.html
+  vnp_ReturnUrl: http://localhost:8088/payment/vnp-callback
+  vnp_ApiUrl: https://sandbox.vnpayment.vn/merchant_webapi/api/transaction
+  vnp_Version: 2.1.0
+  vnp_Command: pay
+  vnp_TmnCode: RT7ZIMH0
+  secretKey: key
+  orderType: other
+

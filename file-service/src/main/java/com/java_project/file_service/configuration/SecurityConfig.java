@@ -18,7 +18,7 @@ import org.springframework.security.web.SecurityFilterChain;
 public class SecurityConfig {
 
     private static final String[] PUBLIC_ENDPOINT = {
-            "/media/upload"
+        "/media/download/**"
     };
 
     private final CustomJwtDecoder customJwtEncoder;
@@ -34,7 +34,7 @@ public class SecurityConfig {
         httpSecurity.authorizeHttpRequests(request ->
                 request
                         //Không authenticated với các endpoint có permitAll
-                        .requestMatchers(HttpMethod.POST , PUBLIC_ENDPOINT).permitAll()
+                        .requestMatchers(PUBLIC_ENDPOINT).permitAll()
                         //Những user có role admin mới có thể truy cập endpoint
                         //Sử dụng security theo endpoint (theo method sẽ dùng trong Service)
                         //C1:

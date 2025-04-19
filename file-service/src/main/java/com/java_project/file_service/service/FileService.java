@@ -1,43 +1,51 @@
 package com.java_project.file_service.service;
 
+import com.java_project.file_service.dto.response.FileData;
+import com.java_project.file_service.dto.response.FileResponse;
+import com.java_project.file_service.exception.AppException;
+import com.java_project.file_service.exception.ErrorCode;
+import com.java_project.file_service.mapper.FileMgmtMapper;
+import com.java_project.file_service.repository.FileMgmtRepository;
+import com.java_project.file_service.repository.FileRepository;
 import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
+import org.springframework.core.io.Resource;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
-import org.springframework.util.ObjectUtils;
-import org.springframework.util.StringUtils;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
-import java.nio.file.StandardCopyOption;
-import java.util.UUID;
 
 @Service
 @RequiredArgsConstructor
 @FieldDefaults(level = AccessLevel.PRIVATE, makeFinal = true)
 public class FileService {
-    public Object uploadFile(MultipartFile file) throws IOException {
-        //Gọi đến folder lưu file
-        Path folder = Paths.get("D:/upload");
+    FileRepository fileRepository;
+    FileMgmtRepository fileMgmtRepository;
 
-        //Lấy phần mở rộng của file (png, pdf, ...)
-        String fileExtension = StringUtils.getFilenameExtension(file.getOriginalFilename());
+    FileMgmtMapper fileMgmtMapper;
 
-        //Tạo file name với UUID
-        String fileName = ObjectUtils.isEmpty(fileExtension) ? UUID.randomUUID().toString() :
-                UUID.randomUUID() + "." + fileExtension;
+    public FileResponse uploadFile(MultipartFile file) throws IOException {
+        var fileInfo = fileRepository.store(file);
 
-        //Tạo đường dẫn của ảnh
-        Path filePath = folder.resolve(fileName) //ghép đường dẫn folder với filename để được đường dẫn đến file
-                .normalize() //chuẩn hoá đường dẫn, loại bỏ các phần tử thừa như "." (thư mục hiện tại) và ".." (thư mục cha).
-                .toAbsolutePath(); //Chuyển đường dẫn tương đối thành đường dẫn tuyệt đối
+        var fileMgmt = fileMgmtMapper.toFileMgmt(fileInfo);
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        fileMgmt.setOwnerId(authentication.getName());
 
-        //Copy file vào folder với việc chèn file nếu file đã tồn tại
-        Files.copy(file.getInputStream(), filePath, StandardCopyOption.REPLACE_EXISTING);
+        fileMgmtRepository.save(fileMgmt);
 
-        return null;
+        return FileResponse.builder()
+                .originalFileName(file.getOriginalFilename())
+                .url(fileInfo.getUrl())
+                .build();
+    }
+
+    public FileData downloadFile(String fileName) throws IOException {
+        var fileMgmt = fileMgmtRepository.findById(fileName)
+                .orElseThrow(() -> new AppException(ErrorCode.FILE_NOT_FOUND));
+
+        return new FileData(fileMgmt.getContentType(), fileRepository.read(fileMgmt));
     }
 }
