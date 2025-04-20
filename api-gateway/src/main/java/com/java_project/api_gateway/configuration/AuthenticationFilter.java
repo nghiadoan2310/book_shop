@@ -77,6 +77,7 @@ public class AuthenticationFilter implements GlobalFilter, Ordered {
         return -1; //Đặt mức độ ưu tiên là -1, sẽ được chạy trước
     }
 
+    //Kiểm tra đường dẫn của request có phải là public endpoint
     private boolean isPublicEndpoint(ServerHttpRequest request) {
         return Arrays.stream(publicEndpoints)
                 .anyMatch(s -> request.getURI().getPath().matches(apiPrefix + s));
