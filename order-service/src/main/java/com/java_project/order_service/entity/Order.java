@@ -1,14 +1,23 @@
-package com.java_project.order_service.dto.response;
+package com.java_project.order_service.entity;
 
+import jakarta.persistence.*;
 import lombok.*;
 import lombok.experimental.FieldDefaults;
 
-@Data
-@Builder
+import java.util.Set;
+
+@Entity //Tạo table trong DB
+@Getter
+@Setter
 @NoArgsConstructor
 @AllArgsConstructor
+@Builder
 @FieldDefaults(level = AccessLevel.PRIVATE)
-public class OrderResponse {
+public class Order {
+    @Id
+    @GeneratedValue(strategy = GenerationType.UUID)
+    String id;
+
     String fullName;
     String phoneNumber;
     String email;
@@ -21,4 +30,7 @@ public class OrderResponse {
     String shipDistrict;
     String shipCity;
     String node;
+
+    @OneToMany
+    Set<OrderDetail> orderDetails;
 }
