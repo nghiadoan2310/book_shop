@@ -60,7 +60,10 @@ public class FileRepository {
     }
 
     public Resource read(FileMgmt fileMgmt) throws IOException {
+        //Đọc file và trả về mảng byte
         var data = Files.readAllBytes(Path.of(fileMgmt.getPath()));
+
+        //wrap dữ liệu file vào 1 đối tượng resource
         return new ByteArrayResource(data);
     }
 }

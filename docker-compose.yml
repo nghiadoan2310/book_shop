@@ -38,6 +38,8 @@ services:
     image: neo4j:latest
     container_name: neo4j
     hostname: neo4j
+    environment:
+      - NEO4J_AUTH=neo4j/nghia2002
     restart: always
     ports:
       - '7474:7474'
