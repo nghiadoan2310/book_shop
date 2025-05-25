@@ -33,7 +33,7 @@ public class ApplicationInitConfig {
             prefix = "spring",
             value = "datasource.driverClassName",
             havingValue = "com.mysql.cj.jdbc.Driver"
-    ) //Thiết lập điều kiện để chạy hàm (chỉ chạy khi kết nối với mysql không chạy khi đang test - test đang chạy h2 db)
+    ) //Thiết lập điều kiện để chạy hàm (chỉ chạy khi kết nối với mysql không chạy, khi đang test - test đang chạy h2 db)
     //Khi khởi tạo app
     ApplicationRunner applicationRunner(UserRepository userRepository){
         return args -> {

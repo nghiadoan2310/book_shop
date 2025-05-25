@@ -13,6 +13,12 @@ spring:
     multipart:
       max-file-size: 5MB
       max-request-size: 5MB
+minio:
+  access_key: root
+  secret_key: nghia2002
+  endpoint: http://localhost:9000
+  bucket:
+    default: media
 
 app:
   services:
