@@ -1,0 +1,16 @@
+server:
+  port: 8091
+  servlet:
+    context-path: /cart
+
+spring:
+  application:
+    name: cart-service
+  redis:
+    host: 127.0.0.1
+    port: 6379
+
+app:
+  services:
+    product:
+      url: http://localhost:8090/product

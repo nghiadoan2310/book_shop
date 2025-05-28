@@ -59,3 +59,10 @@ services:
       - ./data:/bitnami/minio/data
       - ./config:/opt/bitnami/minio/config
     command: minio server /bitnami/minio/data --console-address ":9001"
+  redis:
+    image: redis:latest
+    container_name: redis
+    hostname: redis
+    restart: always
+    ports:
+      - '6379:6379'
