@@ -16,6 +16,7 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+import java.util.concurrent.TimeUnit;
 import java.util.stream.Collectors;
 
 @Service
@@ -42,6 +43,7 @@ public class CartService {
 
         HashOperations<String, String, Object> hashOperations = template.opsForHash();
         hashOperations.put(key, request.getProductId(), addtoCartResponse);
+        template.expire(key, 7*24, TimeUnit.HOURS);
 
         return addtoCartResponse;
     }
