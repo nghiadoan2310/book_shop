@@ -1,6 +1,5 @@
 package com.java_project.comment_service.exception;
 
-import com.java_project.notification_service.exception.ErrorCode;
 import lombok.Getter;
 import lombok.Setter;
 

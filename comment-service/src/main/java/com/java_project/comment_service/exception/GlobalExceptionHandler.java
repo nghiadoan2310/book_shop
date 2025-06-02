@@ -1,8 +1,6 @@
 package com.java_project.comment_service.exception;
 
-import com.java_project.notification_service.dto.ApiResponse;
-import com.java_project.notification_service.exception.AppException;
-import com.java_project.notification_service.exception.ErrorCode;
+import com.java_project.comment_service.dto.ApiResponse;
 import jakarta.validation.ConstraintViolation;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.AccessDeniedException;

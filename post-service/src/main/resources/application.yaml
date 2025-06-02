@@ -11,6 +11,6 @@ spring:
       uri: mongodb://root:root@localhost:27017/post-service?authSource=admin
 
 app:
-  service:
+  services:
     profile:
       url: "http://localhost:8081/profile"

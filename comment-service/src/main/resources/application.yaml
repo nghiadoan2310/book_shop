@@ -1,0 +1,26 @@
+server:
+  port: 8092
+  servlet:
+    context-path: /comment
+
+spring:
+  application:
+    name: comment-service
+  data:
+    mongodb:
+      uri: mongodb://root:root@localhost:27017/comment-service?authSource=admin
+  rabbitmq:
+    host: localhost
+    port: 5672
+    username: admin
+    password: nghia2002
+
+rabbitmq:
+  queue: comment-queue
+  exchange: comment-exchange
+  routing_key: comment-routing-key
+
+app:
+  services:
+    profile:
+      url: http://localhost:8081/profile
