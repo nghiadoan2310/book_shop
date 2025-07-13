@@ -3,6 +3,7 @@ package com.java_project.comment_service.controller;
 import com.java_project.comment_service.dto.ApiResponse;
 import com.java_project.comment_service.dto.PageResponse;
 import com.java_project.comment_service.dto.request.CommentRequest;
+import com.java_project.comment_service.dto.response.CommentLikeResponse;
 import com.java_project.comment_service.dto.response.CommentResponse;
 import com.java_project.comment_service.service.CommentService;
 import lombok.AccessLevel;
@@ -30,6 +31,13 @@ public class CommentController {
             @PathVariable("productId") String productId) {
         return ApiResponse.<PageResponse<CommentResponse>>builder()
                 .result(commentService.getCommentsOfProduct(page, size, productId))
+                .build();
+    }
+
+    @PostMapping("/{commentId}/like")
+    ApiResponse<CommentLikeResponse> CommentLike(@PathVariable("commentId") String commentId) {
+        return ApiResponse.<CommentLikeResponse>builder()
+                .result(commentService.CommentLike(commentId))
                 .build();
     }
 }

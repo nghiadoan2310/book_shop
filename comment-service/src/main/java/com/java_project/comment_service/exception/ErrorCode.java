@@ -19,7 +19,7 @@ public enum ErrorCode {
     USER_NOT_FOUND(1005, "User not found", HttpStatus.NOT_FOUND),
     UNAUTHENTICATED(1006, "Unauthenticated", HttpStatus.UNAUTHORIZED),
     UNAUTHORIZED(1007, "Unauthorized", HttpStatus.FORBIDDEN),
-    CANNOT_SEND_EMAIL(1008, "Cannot send email", HttpStatus.BAD_REQUEST)
+    COMMENT_NOT_FOUND(1012, "Comment not found", HttpStatus.NOT_FOUND)
 
     ; //Khi định nghĩa các lỗi ở trên không cần ; ở cuối dòng
 

@@ -9,4 +9,5 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface CommentRepository extends MongoRepository<Comment, String> {
     Page<Comment> findAllByProductId(String productId, Pageable pageable);
+
 }

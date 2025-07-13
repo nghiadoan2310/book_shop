@@ -15,7 +15,8 @@ public class CommentResponse {
     String productId;
     ProfileResponse userProfile;
     int rating;
-    int like;
+    long like;
+    boolean liked;
     String comment;
     String createAt;
     String updateAt;

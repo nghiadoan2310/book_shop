@@ -53,6 +53,12 @@ public class UserProfileService {
         return userProfileMapper.toUserProfileResponse(userProfile);
     }
 
+    public List<UserProfileResponse> getByUserIds(List<String> userIds) {
+        List<UserProfile> userProfiles = userProfileRepository.findAllByUserIdIn(userIds);
+
+        return userProfiles.stream().map(userProfileMapper::toUserProfileResponse).toList();
+    }
+
     //Get profile của chính nguời dùng
     public UserProfileResponse getMyProfile() {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();

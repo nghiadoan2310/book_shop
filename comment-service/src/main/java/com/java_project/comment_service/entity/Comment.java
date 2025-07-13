@@ -22,7 +22,7 @@ public class Comment {
     String productId;
     ProfileResponse userProfile;
     int rating;
-    int like;
+    long like;
     String comment;
     Instant createAt;
     Instant updateAt;

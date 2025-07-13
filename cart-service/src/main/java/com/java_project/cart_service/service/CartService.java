@@ -41,8 +41,11 @@ public class CartService {
         addtoCartResponse.setProductId(request.getProductId());
         addtoCartResponse.setQuantity(request.getQuantity());
 
+        //Lưu vào redis
         HashOperations<String, String, Object> hashOperations = template.opsForHash();
         hashOperations.put(key, request.getProductId(), addtoCartResponse);
+
+        //Xét exp cho key (7 ngày)
         template.expire(key, 7*24, TimeUnit.HOURS);
 
         return addtoCartResponse;

@@ -47,4 +47,11 @@ public class UserProfileController {
                 .result(userProfileService.updateAvatar(file))
                 .build();
     }
+
+    @PostMapping
+    ApiResponse<List<UserProfileResponse>> getProfiles(@RequestBody List<String> userIds) {
+        return ApiResponse.<List<UserProfileResponse>>builder()
+                .result(userProfileService.getByUserIds(userIds))
+                .build();
+    }
 }
